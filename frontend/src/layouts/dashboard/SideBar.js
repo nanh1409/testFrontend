@@ -3,9 +3,6 @@ import { useTheme } from "@mui/material/styles";
 
 import { Box, Divider, IconButton, Stack } from "@mui/material";
 import AntSwitch from "../../components/AntSwitch";
-
-import Logo from "../../assets/Images/logo.ico";
-
 import useSettings from "../../hooks/useSettings";
 import { Nav_Buttons, Nav_Setting } from "../../data";
 
@@ -115,7 +112,7 @@ const SideBar = () => {
             })}
             <Divider sx={{ width: 48 }} />
             {Nav_Setting.map((el) => {
-              return el.index == selectedTab ? (
+              return el.index === selectedTab ? (
                 <Box
                   sx={{
                     backgroundColor: theme.palette.primary.main,

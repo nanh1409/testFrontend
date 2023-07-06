@@ -3,7 +3,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 // layouts
 import DashboardLayout from "../layouts/dashboard";
-import AuthLayout from "../layouts/main";
+import AuthLayout from "../layouts/auth";
 
 // config
 import { DEFAULT_PATH } from "../config";
@@ -63,7 +63,7 @@ const Conversation = Loadable(
 const Chats = Loadable(lazy(() => import("../pages/dashboard/Chats")));
 const Group = Loadable(lazy(() => import("../pages/dashboard/Group")));
 const CallPage = Loadable(lazy(() => import("../pages/dashboard/Call")));
-const Contact = Loadable(lazy(() => import("../components/Contact")));
+const Contact = Loadable(lazy(() => import("../sections/Dashboard/Contact")));
 const Page404 = Loadable(lazy(() => import("../pages/Page404")));
 
 const LoginPage = Loadable(lazy(() => import("../pages/auth/Login")));
@@ -79,5 +79,5 @@ const NewPasswordPage = Loadable(
 // Settings
 const Settings = Loadable(lazy(() => import("../pages/dashboard/Settings")));
 const Profile = Loadable(
-  lazy(() => import("../pages/dashboard/Profile"))
+  lazy(() => import("../pages/dashboard/Settings/Profile"))
 );
