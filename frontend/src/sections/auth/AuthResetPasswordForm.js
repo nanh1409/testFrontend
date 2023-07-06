@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import FormProvider, { RHFTextField } from "../../components/hook-form";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadingButton } from "@mui/lab";
 import { ForgotPassword } from "../../redux/slices/auth";
+import { LoadingButton } from "@mui/lab";
 
 // ----------------------------------------------------------------------
 
@@ -25,27 +25,14 @@ export default function AuthResetPasswordForm() {
     defaultValues: { email: "demo@tawk.com" },
   });
 
-  const {
-    reset,
-    setError,
-    formState: { errors, isSubmitting, isSubmitSuccessful }
-  } = methods;
-
   const { handleSubmit } = methods;
 
   const onSubmit = async (data) => {
     try {
       //   Send API Request
-      // console.log("Gui data ne")
-      // data = {email: ""};
       dispatch(ForgotPassword(data));
     } catch (error) {
       console.error(error);
-      reset();
-      setError("afterSubmit", {
-        ...error,
-        message: error.message,
-      })
     }
   };
 

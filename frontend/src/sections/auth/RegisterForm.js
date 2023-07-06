@@ -16,9 +16,7 @@ import { RegisterUser } from "../../redux/slices/auth";
 
 export default function AuthRegisterForm() {
   const dispatch = useDispatch();
-
   const {isLoading} = useSelector((state) => state.auth);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -103,7 +101,6 @@ export default function AuthRegisterForm() {
         type="submit"
         variant="contained"
         loading={isLoading}
-        // to={"/verify"}
         sx={{
           bgcolor: "text.primary",
           color: (theme) =>

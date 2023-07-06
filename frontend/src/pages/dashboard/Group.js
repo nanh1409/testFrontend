@@ -8,7 +8,7 @@ import ChatElement from "../../components/ChatElement";
 import Search from "../../components/Search/Search";
 import SearchIconWrapper from "../../components/Search/SearchIconWrapper";
 import StyledInputBase from "../../components/Search/StyledInputBase";
-import CreateGroup from "../../sections/main/CreateGroup";
+import CreateGroup from "../../sections/dashboard/CreateGroup";
 
 const Group = () => {
     const theme = useTheme();

@@ -6,7 +6,7 @@ import ThemeSettings from "./components/settings";
 import ThemeProvider from "./theme";
 import Router from "./routes";
 import { closeSnackBar } from "./redux/slices/app";
-// import { socket } from "./socket";
+import { socket } from "./socket";
 
 const vertical = "bottom";
 const horizontal = "center";
@@ -17,9 +17,8 @@ const Alert = React.forwardRef((props, ref) => (
 
 function App() {
   const dispatch = useDispatch();
-
-  // Bị lỗi không nhận dữ liệu
-  const { open, severity, message } = useSelector(
+  
+  const { severity, message, open } = useSelector(
     (state) => state.app.snackbar
   );
 

@@ -1,199 +1,178 @@
-import { Avatar, Box, Divider, IconButton, Stack, Menu, MenuItem } from "@mui/material";
-import { Nav_Buttons, Profile_Menu } from "../../data";
-import { Gear } from "phosphor-react";
-import { faker } from "@faker-js/faker";
-import AntSwitch from '../../components/AntSwitch'
-import useSettings from '../../hooks/useSettings'
+import React from "react";
 import { useTheme } from "@mui/material/styles";
-import React, { useState } from 'react';
+
+import { Box, Divider, IconButton, Stack } from "@mui/material";
+import AntSwitch from "../../components/AntSwitch";
+
+import Logo from "../../assets/Images/logo.ico";
+
+import useSettings from "../../hooks/useSettings";
+import { Nav_Buttons, Nav_Setting } from "../../data";
+
+import ProfileMenu from "./ProfileMenu";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { LoginUser } from "../../redux/slices/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { UpdateTab } from "../../redux/slices/app";
 
 const getPath = (index) => {
   switch (index) {
     case 0:
-      return "/app"
+      return "/app";
+
     case 1:
-      return "/group"
+      return "/group";
+
     case 2:
-      return "/call"
+      return "/call";
+
     case 3:
-      return "/settings"
-    default:
-      break;
-  }
-}
-
-const getMenuPath = (index) => {
-  switch (index) {
-    case 0:
-      return "/profile"
-    case 1:
-      return "/settings"
-
-    case 2:
-      return "/auth/login"
+      return "/settings";
 
     default:
       break;
   }
-}
+};
 
 const SideBar = () => {
-  const [selected, setSelected] = useState(0);
-  const navigate = useNavigate()
   const theme = useTheme();
-  const { onToggleMode } = useSettings();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const { tab } = useSelector((state) => state.app);
+
+  const navigate = useNavigate();
+
+  const { onToggleMode } = useSettings();
+
+  const selectedTab = tab;
+
+  const handleChangeTab = (index) => {
+    dispatch(UpdateTab({ tab: index }));
+    navigate(getPath(index));
   };
 
-  return (<>
+  return (
     <Box
       sx={{
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.2)",
         height: "100vh",
         width: 100,
+
+        backgroundColor:
+          theme.palette.mode === "light"
+            ? "#F0F4FA"
+            : theme.palette.background.paper,
+        boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
       }}
-      p={2}
     >
       <Stack
-        direction="column"
+        py={3}
+        alignItems={"center"}
         justifyContent="space-between"
-        alignItems="center"
         sx={{ height: "100%" }}
       >
-        <Stack
-          direction="column"
-          alignItems="center"
-          sx={{ width: "100%" }}
-          spacing={3}
-        >
-          <Avatar id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            src={faker.image.avatar()} />
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
+        <Stack alignItems={"center"} spacing={4}>
+          <Box
+            sx={{
+              height: 64,
+              width: 64,
+              borderRadius: 1.5,
+              backgroundColor: theme.palette.primary.main,
             }}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right"
-            }}
-            transformOrigin={{
-              vertical: "bottom",
-              horizontal: "left"
-            }}
+            p={1}
           >
-            <Stack spacing={1} px={1}>
-              {Profile_Menu.map((el, idx) => (
-                <MenuItem
-                  onClick={() => {
-                    handleClick()
-                  }}
-                >
-                  <Stack
-                    onClick={() => {
-                      if (idx === 2) {
-                          dispatch(LoginUser());
-                        }
-                        else {
-                          navigate(getMenuPath(idx));
-                        }
-                    }}
-                    sx={{ width: 100 }}
-                    direction="row"
-                    alignItems={"center"}
-                    justifyContent="space-between"
-                  >
-
-                    <span>{el.title}</span>
-                    {el.icon}
-                  </Stack>{" "}
-                </MenuItem>
-              ))}
-
-            </Stack>
-          </Menu>
+            <img src={Logo} alt="Tawk" />
+          </Box>
           <Stack
-            spacing={3}
-            sx={{ width: "100%" }}
+            sx={{ width: "max-content" }}
             direction="column"
-            alignItems="center"
+            alignItems={"center"}
+            spacing={3}
           >
             {Nav_Buttons.map((el) => {
-              return el.index === selected ? (
+              return el.index === selectedTab ? (
                 <Box
-                  key={el.index}
                   sx={{
                     backgroundColor: theme.palette.primary.main,
                     borderRadius: 1.5,
                   }}
+                  p={1}
                 >
-                  <IconButton sx={{ color: "#fff", width: "max-content" }}>
+                  <IconButton
+                    onClick={() => {
+                      handleChangeTab(el.index);
+                    }}
+                    sx={{ width: "max-content", color: "#ffffff" }}
+                  >
                     {el.icon}
                   </IconButton>
                 </Box>
               ) : (
                 <IconButton
-                  key={el.index}
-                  sx={{ color: theme.palette.mode === "light" ? "#000" : theme.palette.text.primary, width: "max-content" }}
                   onClick={() => {
-                    setSelected(el.index);
-                    navigate(getPath(el.index))
+                    handleChangeTab(el.index);
+                  }}
+                  sx={{
+                    width: "max-content",
+                    color:
+                      theme.palette.mode === "light"
+                        ? "#080707"
+                        : theme.palette.text.primary,
                   }}
                 >
                   {el.icon}
                 </IconButton>
               );
             })}
-            <Divider sx={{ width: 50 }} />
-            {selected === 3 ? (
-              <Box
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  borderRadius: 1.5,
-                }}
-              >
-                <IconButton sx={{ color: "#fff", width: "max-content" }}>
-                  <Gear />
+            <Divider sx={{ width: 48 }} />
+            {Nav_Setting.map((el) => {
+              return el.index === selectedTab ? (
+                <Box
+                  sx={{
+                    backgroundColor: theme.palette.primary.main,
+                    borderRadius: 1.5,
+                  }}
+                  p={1}
+                >
+                  <IconButton
+                    onClick={() => {
+                      handleChangeTab(el.index);
+                    }}
+                    sx={{ width: "max-content", color: "#ffffff" }}
+                  >
+                    {el.icon}
+                  </IconButton>
+                </Box>
+              ) : (
+                <IconButton
+                  onClick={() => {
+                    handleChangeTab(el.index);
+
+                    // dispatch(UpdateTab(el.index));
+                  }}
+                  sx={{
+                    width: "max-content",
+                    color:
+                      theme.palette.mode === "light"
+                        ? "#080707"
+                        : theme.palette.text.primary,
+                  }}
+                >
+                  {el.icon}
                 </IconButton>
-              </Box>
-            ) : (
-              <IconButton
-                onClick={() => {
-                  navigate(getPath(3))
-                  setSelected(3);
-                }}
-                sx={{ color: theme.palette.mode === "light" ? "#000" : theme.palette.text.primary, width: "max-content" }}
-              >
-                <Gear />
-              </IconButton>
-            )}
+              );
+            })}
           </Stack>
         </Stack>
-
-        <AntSwitch defaultChecked onChange={() => {
-          onToggleMode();
-        }} />
+        <Stack spacing={4}>
+          <AntSwitch
+            defaultChecked={theme.palette.mode === "dark"}
+            onChange={onToggleMode}
+          />
+          {/* Profile Menu */}
+          <ProfileMenu />
+        </Stack>
       </Stack>
     </Box>
-  </>)
-}
+  );
+};
 
 export default SideBar;
