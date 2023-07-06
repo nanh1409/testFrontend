@@ -17,7 +17,7 @@ import { SimpleBarStyle } from "../../components/Scrollbar";
 import { useTheme } from "@mui/material/styles";
 import useResponsive from "../../hooks/useResponsive";
 import BottomNav from "../../layouts/dashboard/BottomNav";
-import { ChatList } from "../../data";
+// import { ChatList } from "../../data";
 import ChatElement from "../../components/ChatElement";
 import {
   Search,

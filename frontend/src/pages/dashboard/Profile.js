@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Box, Typography, Link, IconButton, Divider } from "@mui/material";
+import { Stack, Box, Typography, IconButton } from "@mui/material";
 import { CaretLeft } from 'phosphor-react';
 import ProfileForm from '../../sections/settings/ProfileForm';
 

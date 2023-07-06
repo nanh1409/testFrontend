@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -6,7 +6,7 @@ import ThemeSettings from "./components/settings";
 import ThemeProvider from "./theme";
 import Router from "./routes";
 import { closeSnackBar } from "./redux/slices/app";
-import { socket } from "./socket";
+// import { socket } from "./socket";
 
 const vertical = "bottom";
 const horizontal = "center";
