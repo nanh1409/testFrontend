@@ -7,13 +7,15 @@ import { MagnifyingGlass, Plus } from "phosphor-react";
 import { useTheme } from "@mui/material/styles";
 import { SimpleBarStyle } from "../../components/Scrollbar";
 import { CallLogElement } from '../../components/CallElement';
-import { CallLogs } from '../../data';
+// import { CallLogs } from '../../data';
 import StartCall from '../../sections/main/StartCall';
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 const Call = () => {
     const theme = useTheme();
     const [openDialog, setopenDialog] = useState(false)
+    const { call_logs } = useSelector((state) => state.app);
 
     const handleCloseDialog = () => {
         setopenDialog(false)
@@ -59,9 +61,9 @@ const Call = () => {
                                 <Stack spacing={2.4}>
 
 
-                                    {CallLogs.map((el) => <CallLogElement {...el} />)}
-                                    <CallLogElement />
-
+                                {call_logs.map((el, idx) => {
+                    return <CallLogElement key={idx} {...el} />;
+                  })}
                                 </Stack>
                             </SimpleBarStyle>
                         </Stack>

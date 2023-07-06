@@ -1,31 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
-  Grid,
   IconButton,
   Stack,
-  Tab,
-  Tabs,
   Typography,
+  Tabs,
+  Tab,
+  Grid,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { ArrowLeft } from "phosphor-react";
+import useResponsive from "../hooks/useResponsive";
 import { useDispatch } from "react-redux";
 import { UpdateSidebarType } from "../redux/slices/app";
-import { CaretLeft } from "phosphor-react";
 import { faker } from "@faker-js/faker";
-import { SHARED_DOCS, SHARED_LINK } from "../data";
-import { DocMsg, LinkMsg } from "./Chat/MsgType";
+import { DocMsg, LinkMsg } from "./Conversation";
+import { Shared_docs, Shared_links } from "../data/index";
 
-const StarredMessage = () => {
-  const theme = useTheme();
+const Media = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState(0);
 
-  const handleChange = (e, newValue) => {
+  const theme = useTheme();
+
+  const isDesktop = useResponsive("up", "md");
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
-    <Box sx={{ width: 320, height: "100vh " }}>
+    <Box sx={{ width: !isDesktop ? "100vw" : 320, maxHeight: "100vh" }}>
       <Stack sx={{ height: "100%" }}>
         <Box
           sx={{
@@ -40,75 +46,59 @@ const StarredMessage = () => {
           <Stack
             sx={{ height: "100%", p: 2 }}
             direction="row"
-            alignItems="center"
+            alignItems={"center"}
             spacing={3}
           >
             <IconButton
-              onClick={() => {
+               onClick={() => {
                 dispatch(UpdateSidebarType("CONTACT"));
               }}
             >
-              x
+              <ArrowLeft />
             </IconButton>
-            <Typography variant="subtitle2">Starred Message</Typography>
+            <Typography variant="subtitle2">Shared</Typography>
           </Stack>
         </Box>
 
-        <Tabs
-          sx={{
-            px: 2,
-            pt: 2,
-            backgroundColor:
-              theme.palette.mode === "light"
-                ? "#F8FAFF"
-                : theme.palette.background,
-          }}
-          value={value}
-          onChange={handleChange}
-          centered
-        >
+        <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Media" />
           <Tab label="Links" />
           <Tab label="Docs" />
         </Tabs>
         <Stack
           sx={{
-            position: "relative",
             height: "100%",
-            flexGrow: "1",
+            position: "relative",
+            flexGrow: 1,
             overflow: "scroll",
-            backgroundColor:
-              theme.palette.mode === "light"
-                ? "#F8FAFF"
-                : theme.palette.background,
           }}
-          p={3}
-          spacing={1 === 1 ? 1 : 3}
+          spacing={3}
+          padding={value === 1 ? 1 : 3}
         >
+          {/* <Conversation starred={true} /> */}
           {(() => {
             switch (value) {
               case 0:
-                //Images
                 return (
                   <Grid container spacing={2}>
                     {[0, 1, 2, 3, 4, 5, 6].map((el) => (
-                      <Grid item xs={4} key={el}>
+                      <Grid item xs={4}>
                         <img
-                          src={faker.image.avatar()}
-                          alt={faker.name.fullName()}
+                          src={faker.image.city()}
+                          alt={faker.internet.userName()}
                         />
                       </Grid>
                     ))}
                   </Grid>
                 );
               case 1:
-                return SHARED_LINK.map((el) => {
-                  return <LinkMsg el={el} />;
-                });
+                return Shared_links.map((el) => <LinkMsg el={el} />);
+
               case 2:
-                return SHARED_DOCS.map((el) => {
-                  return <DocMsg el={el} />;
-                });
+                return Shared_docs.map((el) => <DocMsg el={el} />);
+
+              default:
+                break;
             }
           })()}
         </Stack>
@@ -117,4 +107,4 @@ const StarredMessage = () => {
   );
 };
 
-export default StarredMessage;
+export default Media;

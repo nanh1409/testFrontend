@@ -15,7 +15,7 @@ const initialState = {
   isLoggedIn: true,
   tab: 0, // [0, 1, 2, 3]
   snackbar: {
-    open: false,
+    open: null,
     severity: null,
     message: null,
   },

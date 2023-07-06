@@ -12,7 +12,7 @@ import SearchIconWrapper from "../../components/Search/SearchIconWrapper";
 import StyledInputBase from "../../components/Search/StyledInputBase";
 import { MagnifyingGlass, Plus } from "phosphor-react";
 import { CallElement } from '../../components/CallElement';
-import { MembersList } from '../../data';
+// import { MembersList } from '../../data';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -47,7 +47,7 @@ const StartCall = ({ open, handleClose }) => {
                     </Stack>
                 </Stack>
 
-                {MembersList.map((el) => <CallElement {...el} />)}
+                {/* {MembersList.map((el) => <CallElement {...el} />)} */}
                 <CallElement />
             </DialogContent>
         </Dialog>
