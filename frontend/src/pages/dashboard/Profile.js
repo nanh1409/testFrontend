@@ -1,35 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { CaretLeft } from "phosphor-react";
 import ProfileForm from "../../sections/settings/ProfileForm";
 import { useDispatch } from "react-redux";
 import { FetchUserProfile } from "../../redux/slices/app";
-import { useTheme } from "@mui/material/styles";
 
 const Profile = () => {
   const dispatch = useDispatch();
-
-  const theme = useTheme();
-
-  const [openTheme, setOpenTheme] = useState(false);
-
-  const handleOpenTheme = () => {
-    setOpenTheme(true);
-  };
-
-  const handleCloseTheme = () => {
-    setOpenTheme(false);
-  };
-  const [openShortcuts, setOpenShortcuts] = useState(false);
-
-  const handleOpenShortcuts = () => {
-    setOpenShortcuts(true);
-  };
-
-  const handleCloseShortcuts = () => {
-    setOpenShortcuts(false);
-  };
   
+  useEffect(() => {
+    dispatch(FetchUserProfile());
+  }, []);
 
   return (
     <>
@@ -77,7 +58,6 @@ const Profile = () => {
           }}
         ></Box>
       </Stack>
-      
     </>
   );
 };
