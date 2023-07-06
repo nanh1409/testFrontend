@@ -8,12 +8,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Eye, EyeSlash } from "phosphor-react";
 import { Link as RouterLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "../../redux/slices/auth";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const {isLoading} = useSelector((state) => state.auth);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -100,6 +101,7 @@ export default function LoginForm() {
         size="large"
         type="submit"
         variant="contained"
+        loading={isLoading}
         sx={{
           bgcolor: "text.primary",
           color: (theme) =>

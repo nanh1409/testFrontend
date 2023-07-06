@@ -7,6 +7,8 @@ import useSettings from '../../hooks/useSettings'
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../../redux/slices/auth";
 
 const getPath = (index) => {
   switch (index) {
@@ -43,7 +45,7 @@ const SideBar = () => {
   const navigate = useNavigate()
   const theme = useTheme();
   const { onToggleMode } = useSettings();
-
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -107,7 +109,12 @@ const SideBar = () => {
                 >
                   <Stack
                     onClick={() => {
-                      navigate(getMenuPath(idx))
+                      if (idx === 2) {
+                          dispatch(LoginUser());
+                        }
+                        else {
+                          navigate(getMenuPath(idx));
+                        }
                     }}
                     sx={{ width: 100 }}
                     direction="row"

@@ -12,8 +12,7 @@ import { ForgotPassword } from "../../redux/slices/auth";
 // ----------------------------------------------------------------------
 
 export default function AuthResetPasswordForm() {
-  // const { isLoading } = useSelector((state) => state.auth);
-  const isLoading = false;
+  const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const ResetPasswordSchema = Yup.object().shape({
     email: Yup.string()

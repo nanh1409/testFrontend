@@ -10,13 +10,14 @@ import { LoadingButton } from "@mui/lab";
 import FormProvider, { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from "phosphor-react";
 import { useDispatch, useSelector } from "react-redux";
+import { RegisterUser } from "../../redux/slices/auth";
 
 // ----------------------------------------------------------------------
 
 export default function AuthRegisterForm() {
   const dispatch = useDispatch();
 
-  const isLoading = false;
+  const {isLoading} = useSelector((state) => state.auth);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -51,7 +52,7 @@ export default function AuthRegisterForm() {
   const onSubmit = async (data) => {
     try {
       // submit data to backend
-        console.log("Dang kis ne")
+      dispatch(RegisterUser(data));
     } catch (error) {
       console.error(error);
       reset();
@@ -102,6 +103,7 @@ export default function AuthRegisterForm() {
         type="submit"
         variant="contained"
         loading={isLoading}
+        // to={"/verify"}
         sx={{
           bgcolor: "text.primary",
           color: (theme) =>

@@ -5,7 +5,7 @@ import Logo from "../../assets/Images/logo.ico"
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const isLoggedIn = true;
+const isLoggedIn = false;
 const MainLayout = () => {
 
   // const { isLoggedIn } = useSelector((state) => state.auth)
