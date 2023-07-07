@@ -1,38 +1,29 @@
-// const sgMail = require("@sendgrid/mail");
+const nodemailer = require("nodemailer");
 
-// sgMail.setApiKey(process.env.SG_KEY);
+module.exports = async ({ to, sender, subject, html, attachments, text }) => {
+  try {
+    // Tạo transporter với thông tin cấu hình máy chủ email của bạn
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: false,
+      auth: {
+        user: "maihoanganhyb2002@gmail.com",
+        pass: "Huyenmy02",
+      },
+    });
 
-// const sendSGMail = async ({
-//   to,
-//   sender,
-//   subject,
-//   html,
-//   attachments,
-//   text,
-// }) => {
-//   try {
-//     const from = "maihoanganhyb2002@gmail.com";
+    // Gửi email
+    let info = await transporter.sendMail({
+      to: to,
+      from: "maihoanganhyb2002@gmail.com",
+      subject: subject,
+      html: html,
+      attachments: attachments,
+    });
 
-//     const msg = {
-//       to: to, // Change to your recipient
-//       from: from, // Change to your verified sender
-//       subject: subject,
-//       html: html,
-//       // text: text,
-//       attachments,
-//     };
-
-    
-//     return sgMail.send(msg);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// exports.sendEmail = async (args) => {
-//   if (!process.env.NODE_ENV === "development") {
-//     return Promise.resolve();
-//   } else {
-//     return sendSGMail(args);
-//   }
-// };
+    console.log("Email sent: " + info.response);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};

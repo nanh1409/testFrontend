@@ -93,6 +93,9 @@ exports.getFriends = catchAsync(async (req, res, next) => {
     "friends",
     "_id firstName lastName"
   );
+
+  console.log(this_user.friends);
+  
   res.status(200).json({
     status: "success",
     data: this_user.friends,

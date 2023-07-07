@@ -70,7 +70,9 @@ const ChatHeader = () => {
   const isMobile = useResponsive("between", "md", "xs", "sm");
   const theme = useTheme();
 
-  const {current_conversation} = useSelector((state) => state.conversation.direct_chat);
+  const { current_conversation } = useSelector(
+    (state) => state.conversation.direct_chat
+  );
 
   const [conversationMenuAnchorEl, setConversationMenuAnchorEl] =
     React.useState(null);
@@ -135,14 +137,15 @@ const ChatHeader = () => {
             alignItems="center"
             spacing={isMobile ? 1 : 3}
           >
-            <IconButton onClick={() => {
-              dispatch(StartVideoCall(current_conversation.user_id));
-            }}>
+            <IconButton
+              onClick={() => {
+                dispatch(StartVideoCall(current_conversation.user_id));
+              }}
+            >
               <VideoCamera />
             </IconButton>
             <IconButton
               onClick={() => {
-                
                 dispatch(StartAudioCall(current_conversation.user_id));
               }}
             >
@@ -189,7 +192,12 @@ const ChatHeader = () => {
               <Box p={1}>
                 <Stack spacing={1}>
                   {Conversation_Menu.map((el) => (
-                    <MenuItem onClick={handleCloseConversationMenu}>
+                    <MenuItem
+                      onClick={() => {
+                        dispatch(ToggleSidebar());
+                      }}
+                      
+                    >
                       <Stack
                         sx={{ minWidth: 100 }}
                         direction="row"
@@ -206,8 +214,6 @@ const ChatHeader = () => {
           </Stack>
         </Stack>
       </Box>
-
-      
     </>
   );
 };

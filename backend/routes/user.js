@@ -1,7 +1,13 @@
+// const clearAllCookies = require("../utils/clearCookie");
+
+// // Use the clearAllCookies function here
+// clearAllCookies();
+
 const router = require("express").Router();
 
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
+
 
 router.post(
   "/generate-zego-token",

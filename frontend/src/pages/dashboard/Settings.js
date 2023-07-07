@@ -21,11 +21,23 @@ import {
 } from "phosphor-react";
 
 import { useTheme } from "@mui/material/styles";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
 import ThemeDialog from "../../sections/settings/ThemeDialog";
 import ShortcutDialog from "../../sections/settings/Shortcuts";
-
+import { AWS_S3_REGION, S3_BUCKET_NAME } from "../../config";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 const Settings = () => {
+
+  const {user} = useSelector((state) => state.app);
+
+  // const user_id = window.localStorage.getItem("user_id");
+
+  const user_name = user?.firstName;
+  const user_name_last = user?.lastName;
+  const user_img = `https://${S3_BUCKET_NAME}.s3.${AWS_S3_REGION}.amazonaws.com/${user?.avatar}`;
+
   const theme = useTheme();
 
   const [openTheme, setOpenTheme] = useState(false);
@@ -121,7 +133,9 @@ const Settings = () => {
             {/* Header */}
             <Stack direction="row" alignItems={"center"} spacing={3}>
               <IconButton>
+              <Link to={"/app"} component={RouterLink}>
                 <CaretLeft size={24} color={"#4B4B4B"} />
+              </Link>
               </IconButton>
 
               <Typography variant="h5">Settings</Typography>
@@ -130,12 +144,12 @@ const Settings = () => {
             {/* Profile */}
             <Stack direction="row" spacing={3}>
               <Avatar
-                src={faker.image.avatar()}
-                sx={{ height: 56, width: 56 }}
+                alt={user_name}
+                src={user_img}
               />
               <Stack spacing={0.5}>
-                <Typography variant="article">{`${faker.name.firstName()} ${faker.name.lastName()}`}</Typography>
-                <Typography variant="body2">{faker.random.words()}</Typography>
+                <Typography variant="article">{`${user_name} ${user_name_last}`}</Typography>
+                {/* <Typography variant="body2">{faker.random.words()}</Typography> */}
               </Stack>
             </Stack>
             {/* List */}

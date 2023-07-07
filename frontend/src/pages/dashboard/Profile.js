@@ -4,13 +4,18 @@ import { CaretLeft } from "phosphor-react";
 import ProfileForm from "../../sections/settings/ProfileForm";
 import { useDispatch } from "react-redux";
 import { FetchUserProfile } from "../../redux/slices/app";
+import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(FetchUserProfile());
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -34,7 +39,9 @@ const Profile = () => {
             {/* Header */}
             <Stack direction="row" alignItems={"center"} spacing={3}>
               <IconButton>
-                <CaretLeft size={24} color={"#4B4B4B"} />
+                <Link to={"/app"} component={RouterLink}>
+                <CaretLeft size={24} color={"#4B4B4B"}/>
+                </Link>
               </IconButton>
 
               <Typography variant="h5">Profile</Typography>

@@ -1,6 +1,8 @@
 // @mui
 import { enUS, frFR, zhCN, viVN, arSD } from '@mui/material/locale';
-
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 // routes
 import { PATH_DASHBOARD } from "./routes/paths";
 
@@ -19,6 +21,27 @@ export const defaultSettings = {
   themeColorPresets: "default",
   themeStretch: false,
 };
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAM4AivfHfZN4PxEkPmUdyZiBINplkje_Q",
+  authDomain: "chat-realtime-de393.firebaseapp.com",
+  projectId: "chat-realtime-de393",
+  storageBucket: "chat-realtime-de393.appspot.com",
+  messagingSenderId: "1022675318108",
+  appId: "1:1022675318108:web:eca7e74c85ee5ee8223d99",
+  measurementId: "G-XYJ0JR4432"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 
 export const NAVBAR = {
   BASE_WIDTH: 260,

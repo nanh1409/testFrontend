@@ -58,7 +58,7 @@ server.listen(port, () => {
 // Add this
 // Listen for when the client connects via socket.io-client
 io.on("connection", async (socket) => {
-  // console.log(JSON.stringify(socket.handshake.query));
+  console.log(JSON.stringify(socket.handshake.query));
   const user_id = socket.handshake.query["user_id"];
 
   console.log(`User connected ${socket.id}`);

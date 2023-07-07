@@ -11,10 +11,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { UpdateUserProfile } from "../../redux/slices/app";
 import { AWS_S3_REGION, S3_BUCKET_NAME } from "../../config";
 
+// import { initializeApp } from 'firebase/app';
+// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 const ProfileForm = () => {
   const dispatch = useDispatch();
   const [file, setFile] = useState();
   const { user } = useSelector((state) => state.app);
+
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyAM4AivfHfZN4PxEkPmUdyZiBINplkje_Q",
+  //   authDomain: "chat-realtime-de393.firebaseapp.com",
+  //   projectId: "chat-realtime-de393",
+  //   storageBucket: "chat-realtime-de393.appspot.com",
+  //   messagingSenderId: "1022675318108",
+  //   appId: "1:1022675318108:web:eca7e74c85ee5ee8223d99",
+  //   measurementId: "G-XYJ0JR4432",
+  // };
+
+  // // Khởi tạo ứng dụng Firebase
+  // const app = initializeApp(firebaseConfig);
+
+  // // Tham chiếu tới Firebase Storage
+  // const storage = getStorage(app).ref();
 
   const ProfileSchema = Yup.object().shape({
     firstName: Yup.string().required("Name is required"),
@@ -59,7 +78,7 @@ const ProfileForm = () => {
       console.error(error);
     }
   };
-
+  
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
