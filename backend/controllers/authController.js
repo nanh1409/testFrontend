@@ -82,18 +82,18 @@ exports.sendOTP = catchAsync(async (req, res, next) => {
   console.log(new_otp);
 
   // TODO send mail
-  mailService.sendEmail({
-    from: "maihoanganhyb2002@gmail.com",
-    to: user.email,
-    subject: "Verification OTP",
-    html: otp(user.firstName, new_otp),
-    attachments: [],
-  });
+  // mailService.sendEmail({
+  //   from: "maihoanganhyb2002@gmail.com",
+  //   to: user.email,
+  //   subject: "Verification OTP",
+  //   html: otp(user.firstName, new_otp),
+  //   attachments: [],
+  // });
 
-  res.status(200).json({
-    status: "success",
-    message: "OTP Sent Successfully!",
-  });
+  // res.status(200).json({
+  //   status: "success",
+  //   message: "OTP Sent Successfully!",
+  // });
 });
 
 exports.verifyOTP = catchAsync(async (req, res, next) => {
