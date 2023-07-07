@@ -100,7 +100,7 @@ export default function AuthLoginForm() {
         size="large"
         type="submit"
         variant="contained"
-        loading={isLoading}
+        // loading={isLoading}
         sx={{
           bgcolor: "text.primary",
           color: (theme) =>
